@@ -1,4 +1,4 @@
-﻿# dsh-whale-chat 🐳💬
+# dsh-whale-chat 🐳💬
 
 [![npm](https://img.shields.io/npm/v/dsh-whale-chat)](https://www.npmjs.com/package/dsh-whale-chat)
 [![license](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
@@ -35,13 +35,21 @@
 dsh plugin --profile desktop add github:Artificialimbecile/dsh-whale-chat
 ```
 
-（不是 desktop profile 就把 `--profile` 换成你的 profile 名，例如 `web`。）
+> 这条命令走 pnpm 的 git 解析（需要机器上有可用的 `git`）。如果报 `ERR_PNPM_GIT_RESOLVE_FAILED`，改用下面的 Release 预构建包：
 
-### 从 npm 安装
+```sh
+dsh plugin --profile desktop add https://github.com/Artificialimbecile/dsh-whale-chat/releases/download/v0.1.0/dsh-whale-chat-0.1.0.tgz
+```
+
+### 从 npm 安装（推荐）
 
 ```sh
 dsh plugin --profile desktop add dsh-whale-chat
 ```
+
+npm 安装是预构建包，不需要 build 授权，也不依赖 `git`，最省事。
+
+（不是 desktop profile 就把 `--profile` 换成你的 profile 名，例如 `web`。）
 
 ### 本地目录（开发 / 自用）
 
