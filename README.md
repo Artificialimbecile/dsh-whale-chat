@@ -1,4 +1,4 @@
-﻿# dsh-whale-chat 🐳💬
+# dsh-whale-chat 🐳💬
 
 [![npm](https://img.shields.io/npm/v/dsh-whale-chat)](https://www.npmjs.com/package/dsh-whale-chat)
 [![license](https://img.shields.io/badge/code-MIT-blue)](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/LICENSE)
