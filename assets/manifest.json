@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "plugin": "dsh-whale-chat",
+  "video": { "width": 640, "height": 360, "ext": ".webm", "alpha": "vp9" },
+  "assetBase": "/dsh-whale-chat/assets/webm",
+  "fonts": { "candy": "/dsh-whale-chat/assets/font/candy.ttf" },
+  "icon": "/dsh-whale-chat/assets/icon.png",
+  "weights": { "idle": 45, "actions": 45, "moves": 10 },
+  "pools": {
+    "idle": ["待机呼吸休闲"],
+    "turn": ["东张西望"],
+    "drag": ["被鼠标拖拽悬空反馈"],
+    "clicks": [
+      "点击回应-开心跃动",
+      "点击回应-害羞惊讶",
+      "点击回应-傲娇生气",
+      "点击回应-挠痒咯咯笑",
+      "点击回应-元气挥手"
+    ],
+    "moves": ["螃蟹走路", "原地漂浮踏步", "原地左转奔跑"],
+    "actions": [
+      "悠闲哼歌",
+      "超大伸懒腰",
+      "原地敲击桌面互动",
+      "哈欠连天",
+      "照镜子",
+      "撸猫",
+      "用鲸鱼尾巴拍打地面",
+      "原地小憩沉眠",
+      "被吓一跳",
+      "轻快摇摆舞",
+      "写代码",
+      "蓝鲸现世",
+      "鲸鱼吐泡泡特效",
+      "吃Token",
+      "玩水枪",
+      "放烟花"
+    ],
+    "thinking": ["工作状态-思考冒泡", "深度思考碎碎念"],
+    "busy": ["工作状态-忙碌点按"],
+    "talk": ["碎碎念-擦桌碎碎念", "碎碎念-发呆碎碎念", "碎碎念-对屏碎碎念"],
+    "roamWalk": ["螃蟹走路"],
+    "roamLook": ["东张西望"],
+    "happy": ["工作状态-雀跃庆祝"],
+    "sad": ["工作状态-垂头叹气冒汗"],
+    "sleep": ["原地小憩沉眠"]
+  }
+}
