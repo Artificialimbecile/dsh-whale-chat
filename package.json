@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "dsh-whale-chat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "鲸聊：一只会说话的鲸鱼桌宠（dsh-pet 二次创作）。陪你聊天、有人设、会自己随机上网逛一圈再把见闻带回来告诉你。",
   "icon": "./icon.png",
   "type": "module",

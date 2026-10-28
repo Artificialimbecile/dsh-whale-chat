@@ -1,7 +1,7 @@
-# dsh-whale-chat 🐳💬
+﻿# dsh-whale-chat 🐳💬
 
 [![npm](https://img.shields.io/npm/v/dsh-whale-chat)](https://www.npmjs.com/package/dsh-whale-chat)
-[![license](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
+[![license](https://img.shields.io/badge/code-MIT-blue)](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/LICENSE)
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-8a2be2)](https://github.com/topics/dsh-plugin)
 
 > 一只会说话的透明鲸鱼桌宠，住在 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 的 Web 界面右下角。
@@ -9,7 +9,7 @@
 >
 > A talking whale desktop pet for DeepSeek Harness: chat with it, give it a persona, and let it wander the web on its own to bring back things worth telling you. Art & animations are a derivative work based on [`dsh-pet`](https://github.com/PC2005-cloud/dsh-pet).
 
-![桌宠与对话面板](screenshots/chat-panel.png)
+![桌宠与对话面板](https://raw.githubusercontent.com/Artificialimbecile/dsh-whale-chat/main/screenshots/chat-panel.png)
 
 ## 功能
 
@@ -38,7 +38,7 @@ dsh plugin --profile desktop add github:Artificialimbecile/dsh-whale-chat
 > 这条命令走 pnpm 的 git 解析（需要机器上有可用的 `git`）。如果报 `ERR_PNPM_GIT_RESOLVE_FAILED`，改用下面的 Release 预构建包：
 
 ```sh
-dsh plugin --profile desktop add https://github.com/Artificialimbecile/dsh-whale-chat/releases/download/v0.1.0/dsh-whale-chat-0.1.0.tgz
+dsh plugin --profile desktop add https://github.com/Artificialimbecile/dsh-whale-chat/releases/latest/download/dsh-whale-chat.tgz
 ```
 
 ### 从 npm 安装（推荐）
@@ -78,7 +78,7 @@ dsh plugin --profile desktop remove dsh-whale-chat
 3. **上网逛逛**：确认开关与间隔；点「立即上网看看」立刻抽一个来源、抓取并让她说给你听。
 4. 来源清单每行一个：`名称 | URL | 类型`，类型可写 `auto` / `json` / `rss` / `html`（留空按 auto）。想加自己的 RSS 或站点就加一行。
 
-![设置 → 鲸聊](screenshots/settings-persona.png)
+![设置 → 鲸聊](https://raw.githubusercontent.com/Artificialimbecile/dsh-whale-chat/main/screenshots/settings-persona.png)
 
 ## 配置
 
@@ -137,14 +137,14 @@ dsh plugin --profile desktop remove dsh-whale-chat
 
 删除 `memory.json` 即清空对话记忆（设置页有「清空对话记忆」按钮）。
 
-![上网来源与外观](screenshots/settings-sources.png)
+![上网来源与外观](https://raw.githubusercontent.com/Artificialimbecile/dsh-whale-chat/main/screenshots/settings-sources.png)
 
 ## 工作原理
 
 - **宿主侧**（`lib/index.js` 等）：一条 `/dsh-whale-chat` prefix 路由提供接口与素材；30 秒 tick 的调度器按配置决定「现在该不该出门」；抓取网页 → 抽取标题/正文 → 用 `ctx.llm`（DSH 的模型统一抽象）转述成人设口吻的消息 → 入队。
 - **浏览器侧**（`lib/client.js`）：通过 DSH 模块系统加载；`shell.overlay` 槽注册桌宠与对话面板，`settings.section` 槽注册设置页；每 12 秒增量拉取主动消息，弹气泡 + 播「出门溜达」动画。
 
-接口契约见 [docs/API.md](docs/API.md)，架构与开发说明见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+接口契约见 [docs/API.md](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/docs/API.md)，架构与开发说明见 [docs/ARCHITECTURE.md](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/docs/ARCHITECTURE.md)。
 
 ## 常见问题
 
@@ -178,11 +178,11 @@ B 站 ranking 接口有风控（HTTP 200 + `code:-352`）。插件已用真实�
 | 图标 `icon.png` | dsh-pet `assets/logo.png` | 同上 |
 | 桌宠形态与设置页信息架构 | dsh-pet / [dsh-bili-whale](https://github.com/Alterssss/dsh-bili-whale)（仅参考思路，代码为重新实现） | MIT |
 
-- **代码**（`lib/`、`test/`、构建脚本之外的所有源码）以 **MIT** 许可发布，见 [LICENSE](LICENSE)。
+- **代码**（`lib/`、`test/`、构建脚本之外的所有源码）以 **MIT** 许可发布，见 [LICENSE](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/LICENSE)。
 - **素材**（动画 / 字体 / 图标）版权归 dsh-pet 原作者所有，按原项目 README 的素材许可：**允许开源使用、禁止商用**。如需商用，请直接联系 [dsh-pet 原作者](https://github.com/PC2005-cloud) 取得授权。
 - 如果你是 dsh-pet 作者并认为本项目的复用方式不妥，请开 issue，我会调整或移除相关素材。
 
-完整归属说明见 [NOTICE.md](NOTICE.md)。
+完整归属说明见 [NOTICE.md](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/NOTICE.md)。
 
 ## 开发
 
@@ -192,11 +192,11 @@ cd dsh-whale-chat
 node --test --test-isolation=none test/*.test.mjs   # 99 个单测
 ```
 
-本地联调：把仓库 `link:` 装进一个开发 profile，改完客户端代码刷新页面、改完宿主代码重启该 profile；`/dsh-whale-chat/selfcheck` 自检页能一次性验证接口与模型调用。细节见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+本地联调：把仓库 `link:` 装进一个开发 profile，改完客户端代码刷新页面、改完宿主代码重启该 profile；`/dsh-whale-chat/selfcheck` 自检页能一次性验证接口与模型调用。细节见 [docs/ARCHITECTURE.md](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/docs/ARCHITECTURE.md)。
 
 欢迎 issue / PR。提交前请跑一遍单测。
 
 ## 许可
 
-- 代码：[MIT](LICENSE)
-- 素材（来自 dsh-pet）：允许开源使用、禁止商用，详见 [NOTICE.md](NOTICE.md)
+- 代码：[MIT](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/LICENSE)
+- 素材（来自 dsh-pet）：允许开源使用、禁止商用，详见 [NOTICE.md](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/NOTICE.md)
