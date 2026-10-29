@@ -1,4 +1,4 @@
-# dsh-whale-chat 🐳💬
+# dsh-whale-chat 🐳
 
 [![npm](https://img.shields.io/npm/v/dsh-whale-chat)](https://www.npmjs.com/package/dsh-whale-chat)
 [![license](https://img.shields.io/badge/code-MIT-blue)](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/LICENSE)
@@ -16,7 +16,7 @@
 | 功能 | 说明 |
 |---|---|
 | 🐳 透明桌宠 | 640×360 VP9-alpha `.webm` 动画：待机呼吸 / 随机小动作 / 点击回应 / 拖拽 / 思考 / 说话 / 出门溜达；可拖到四个角，位置自动保存 |
-| 💬 主动聊天 | 双击宠物或点 💬 打开对话面板，Enter 发送、Shift+Enter 换行；对话记忆持久化，重启不丢 |
+| 💬 主动聊天 | 双击宠物打开对话面板（她说话的气泡也可以点开），Enter 发送、Shift+Enter 换行；对话记忆持久化，重启不丢 |
 | 🎭 可配置人设 | 名字 / 她怎么称呼你 / 她怎么自称 / 人设正文（≤20000 字）；与时间背景一起拼成 system 提示词 |
 | 🌏 随机上网 | 按「间隔 × 随机抖动」自己出门，从来源清单随机挑站点抓取，让模型用人设口吻把见闻说给你听；支持每日上限、安静时段、失败降级 |
 | ⚙️ 设置页 | DSH 设置 →「鲸聊」：人设、对话模型、上网偏好、来源清单、外观、状态与一键工具 |
@@ -74,7 +74,7 @@ dsh plugin --profile desktop remove dsh-whale-chat
 ## 快速上手
 
 1. **设置 → 鲸聊**：改名字 / 称呼，在「人设正文」写几行她的来历、语气、在意什么（不写也能用内置默认人设）。
-2. 点右下角鲸鱼上的 💬，发一句「在吗」，看她的回复。
+2. 双击右下角鲸鱼打开对话面板，发一句「在吗」，看她的回复。
 3. **上网逛逛**：确认开关与间隔；点「立即上网看看」立刻抽一个来源、抓取并让她说给你听。
 4. 来源清单每行一个：`名称 | URL | 类型`，类型可写 `auto` / `json` / `rss` / `html`（留空按 auto）。想加自己的 RSS 或站点就加一行。
 

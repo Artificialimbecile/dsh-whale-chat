@@ -41,7 +41,7 @@ dsh-whale-chat/
 
 - 入口：`window.__ModuleLoader__.load({ id:'dsh-whale-chat', factory })`；exports `{ name, inject:['slots'], apply }`。
 - 两个槽位：
-  - `shell.overlay`（order 1200）：固定定位、`pointer-events:none` 的容器里放 `<video muted autoplay playsinline>` 桌宠 + 气泡 + 💬 按钮 + 未读角标 + 对话面板；拖拽用 pointer events，松手按最近角落局部 `POST /api/settings { appearance }`。
+  - `shell.overlay`（order 1200）：固定定位、`pointer-events:none` 的容器里放 `<video muted autoplay playsinline>` 桌宠 + 气泡 + 未读角标 + 对话面板；拖拽用 pointer events，松手按最近角落局部 `POST /api/settings { appearance }`；双击桌宠（或单击气泡/角标）打开对话面板，不再有独立的「打开面板」图标按钮。
   - `settings.section`（label「鲸聊」）：六组配置（她是谁 / 人设 / 对话 / 上网 / 外观 / 状态与工具），数据驱动渲染，逐字段中文校验。
 - 动画状态机：`idle`（待机 + 45/45/10 加权随机小动作/位移）、`thinking`（等待回复循环）、`talk`（回复后播碎碎念）、`roam`（螃蟹走路→东张西望）、`happy`（点击回应随机）、`drag`；素材加载失败依次回退 `icon.png` → 占位块，界面不会白屏。
 - 主动消息轮询：每 12 秒 `GET /api/messages?afterId=cursor`，失败指数退避到 60s；首次挂载只同步基线，不弹历史气泡。

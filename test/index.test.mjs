@@ -37,13 +37,15 @@ function readStateFile(file) {
   return JSON.parse(fs.readFileSync(file, 'utf8'))
 }
 
+const PKG = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
+
 const ctxWith = (selection) => ({ agentDefaultModel: { currentSelection: () => selection } })
 
 test('插件入口：name / inject / 路由前缀', () => {
   assert.equal(name, 'dsh-whale-chat')
   assert.deepEqual(inject, ['webServer', 'connection', 'llm', 'agentDefaultModel'])
   assert.equal(ROUTE_PREFIX, '/dsh-whale-chat')
-  assert.equal(VERSION, '0.1.0')
+  assert.equal(VERSION, PKG.version)
 })
 
 test('classifyApi：SPEC §4 路径/方法', () => {
@@ -87,7 +89,7 @@ test('buildRuntime：模型/记忆/未读/roam 快照', () => {
     }),
   )
   const runtime = buildRuntime(ctxWith({ provider: 'deepseek-account', model: 'deepseek-flash' }), defaultConfig(), paths)
-  assert.equal(runtime.version, '0.1.0')
+  assert.equal(runtime.version, PKG.version)
   assert.deepEqual(runtime.model, { provider: 'deepseek-account', model: 'deepseek-flash' })
   assert.deepEqual(runtime.chatModel, runtime.model, '没单独配模型时跟随当前对话')
   assert.equal(runtime.memoryCount, 1)
