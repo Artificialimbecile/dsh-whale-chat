@@ -14,8 +14,8 @@
 | GET | `/api/settings` | `{ ok, config, runtime, paths }` |
 | POST | `/api/settings` | body 为 `{ config }` 或裸配置（支持局部深合并）；成功返回 `{ ok, config, runtime, warnings? }`，非法值 400 |
 | GET | `/api/status` | `{ ok, runtime }`，轻量轮询用 |
-| GET | `/api/history?limit=50` | `{ ok, messages: [{ role, content, ts, kind }] }`，时间正序 |
-| POST | `/api/history/clear` | `{ ok, cleared }` |
+| GET | `/api/history?limit=50` | `{ ok, messages }`，时间正序；聊天记录与主动消息（上网带回/碎碎念/报错）合并，主动消息带 `kind: "roam"\|"whisper"\|"error"`、`id: "p<数字>"`、`source: { name, url }` |
+| POST | `/api/history/clear` | `{ ok, cleared, clearedProactive }`（同时清空 `memory.json` 与主动消息队列） |
 | POST | `/api/chat` | body `{ text }`（1–8000 字）→ `{ ok, reply: { role, text, ts }, model, memoryCount }`；失败 `{ ok:false, error, reason }` |
 | GET | `/api/messages?afterId=0&limit=20` | `{ ok, items, cursor, unreadCount }`，`id > afterId` 升序 |
 | POST | `/api/messages/read` | body `{ id }` → `{ ok, unreadCount }`，标记 ≤ id 的主动消息已读 |
@@ -29,7 +29,7 @@
 
 ```jsonc
 {
-  "version": "0.1.3",
+  "version": "0.1.4",
   "model": { "provider": "deepseek-account", "model": "deepseek-flash" }, // 当前对话模型，可能为 null
   "chatModel": { "provider": "...", "model": "..." },                     // 实际生效的对话模型
   "memoryCount": 12,

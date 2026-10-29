@@ -18,12 +18,14 @@
 | 🐳 透明桌宠 | 640×360 VP9-alpha `.webm` 动画：待机呼吸 / 随机小动作 / 点击回应 / 拖拽 / 思考 / 说话 / 出门溜达；可拖到四个角，位置自动保存 |
 | 💬 主动聊天 | 双击宠物打开对话面板（她说话的气泡也可以点开），Enter 发送、Shift+Enter 换行；对话记忆持久化，重启不丢 |
 | 🎭 可配置人设 | 名字 / 她怎么称呼你 / 她怎么自称 / 人设正文（≤20000 字）；与时间背景一起拼成 system 提示词 |
-| 🌏 随机上网 | 按「间隔 × 随机抖动」自己出门，从来源清单随机挑站点抓取，让模型用人设口吻把见闻说给你听；支持每日上限、安静时段、失败降级 |
+| 🌏 随机上网 | 按「间隔 × 随机抖动」自己出门，从来源清单随机挑站点抓取，让模型用人设口吻把见闻说给你听；支持每日上限、安静时段、失败降级；**带回的消息保留在对话面板里**（带来源链接，可回看） |
 | ⚙️ 设置页 | DSH 设置 →「鲸聊」：人设、对话模型、上网偏好、来源清单、外观、状态与一键工具 |
 | 🔒 安全 | 抓取带 SSRF 防护（只允许公网 http/https，DNS 解析后校验回环/私网/链路本地地址）、超时与体积上限；API 走 DSH 的请求信任栅栏 |
 | 🧠 零额外依赖 | 纯 ESM + 浏览器原生，无 npm 运行依赖、无需构建 |
 
 默认模型跟随当前对话（零配置）；也可以单独指定便宜的 provider/model 给对话与碎碎念。
+
+![随机上网带回的消息会保留在对话面板里（带来源链接）](https://raw.githubusercontent.com/Artificialimbecile/dsh-whale-chat/main/screenshots/chat-panel-roam.png)
 
 ## 安装
 
@@ -135,7 +137,7 @@ dsh plugin --profile desktop remove dsh-whale-chat
 | `messages.json` | 主动消息队列（上网见闻 / 碎碎念 / 失败提示） |
 | `state.json` | 上网调度状态（今日次数、上次/下次时间、上次来源与错误） |
 
-删除 `memory.json` 即清空对话记忆（设置页有「清空对话记忆」按钮）。
+删除 `memory.json` 即清空对话记忆（设置页有「清空对话记忆」按钮，会连同上网带回的消息一起清掉）。
 
 ![上网来源与外观](https://raw.githubusercontent.com/Artificialimbecile/dsh-whale-chat/main/screenshots/settings-sources.png)
 
@@ -158,7 +160,7 @@ B 站 ranking 接口有风控（HTTP 200 + `code:-352`）。插件已用真实�
 说明 DSH 还没有默认模型。到 DSH 设置里选一个模型，或在「鲸聊 → 对话」里单独填服务商 + 模型（两个字段要么都填、要么都留空）。
 
 **「想清空记忆 / 改配置后不生效」**
-「清空对话记忆」按钮会清空 `memory.json`；改外观/人设在保存后立即生效，改上网参数会重算下次出门时间。
+「清空对话记忆」按钮会清空 `memory.json` 和上网带回的消息队列；改外观/人设在保存后立即生效，改上网参数会重算下次出门时间。
 
 ## 已知限制
 
@@ -189,7 +191,7 @@ B 站 ranking 接口有风控（HTTP 200 + `code:-352`）。插件已用真实�
 ```sh
 git clone https://github.com/Artificialimbecile/dsh-whale-chat.git
 cd dsh-whale-chat
-node --test --test-isolation=none test/*.test.mjs   # 99 个单测
+node --test --test-isolation=none test/*.test.mjs   # 101 个单测
 ```
 
 本地联调：把仓库 `link:` 装进一个开发 profile，改完客户端代码刷新页面、改完宿主代码重启该 profile；`/dsh-whale-chat/selfcheck` 自检页能一次性验证接口与模型调用。细节见 [docs/ARCHITECTURE.md](https://github.com/Artificialimbecile/dsh-whale-chat/blob/main/docs/ARCHITECTURE.md)。

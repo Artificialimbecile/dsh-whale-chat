@@ -44,13 +44,13 @@ dsh-whale-chat/
   - `shell.overlay`（order 1200）：固定定位、`pointer-events:none` 的容器里放 `<video muted autoplay playsinline>` 桌宠 + 气泡 + 未读角标 + 对话面板；拖拽用 pointer events，松手按最近角落局部 `POST /api/settings { appearance }`；双击桌宠（或单击气泡/角标）打开对话面板，不再有独立的「打开面板」图标按钮。
   - `settings.section`（label「鲸聊」）：六组配置（她是谁 / 人设 / 对话 / 上网 / 外观 / 状态与工具），数据驱动渲染，逐字段中文校验。
 - 动画状态机：`idle`（待机 + 45/45/10 加权随机小动作/位移）、`thinking`（等待回复循环）、`talk`（回复后播碎碎念）、`roam`（螃蟹走路→东张西望）、`happy`（点击回应随机）、`drag`；素材加载失败依次回退 `icon.png` → 占位块，界面不会白屏。
-- 主动消息轮询：每 12 秒 `GET /api/messages?afterId=cursor`，失败指数退避到 60s；首次挂载只同步基线，不弹历史气泡。
+- 主动消息轮询：每 12 秒 `GET /api/messages?afterId=cursor`，失败指数退避到 60s；首次挂载只同步基线，不弹历史气泡。面板时间线 = `memory.json` 聊天记录 + `messages.json` 主动消息按 `ts` 合并（宿主 `mergeHistory`），面板开着时新消息同时追加进列表。
 - 主题：不依赖 DSH 内部主题 API（未公开），读页面背景亮度 + `prefers-color-scheme` 推断深浅色，保证文字对比度。
 - 卸载：`ctx.effect` 返回的 disposer + React `useEffect` 清理全部定时器、事件监听、pointer capture；异步回调都有 mounted 守卫。
 
 ## 测试策略
 
-- `test/*.test.mjs`（99 个）覆盖纯逻辑：配置合并/校验、提示词拼装、模型候选链、SSRF 判定、RSS/HTML/JSON 抽取、消息队列、调度时间计算、路由分类、信任栅栏、静态资源防穿越。
+- `test/*.test.mjs`（101 个）覆盖纯逻辑：配置合并/校验、提示词拼装、模型候选链、SSRF 判定、RSS/HTML/JSON 抽取、消息队列、历史合并、调度时间计算、路由分类、信任栅栏、静态资源防穿越。
 - DSH 运行时相关（真实 `ctx.llm`、Web server、模块系统）在开发 profile 里端到端验证；`/selfcheck` 页把接口结果一次性打在页面上，便于无 UI 环境取证。
 - 本项目开发环境的 E2E 清单（14 项：宿主加载、启动图、bundle、settings、chat、history、roam、selfcheck、assets、目录穿越、连续 roam 稳定性、单测、语法）见仓库历史与 PR 描述。
 

@@ -15,6 +15,7 @@ import {
   generateChat,
   historySlice,
   memoryCount,
+  mergeHistory,
   normalizeMemory,
   readHistory,
   readMemory,
@@ -93,6 +94,34 @@ test('readHistory：limit 夹取、时间正序', () => {
   assert.deepEqual(Object.keys(history[0]).sort(), ['content', 'kind', 'role', 'ts'])
   assert.equal(readHistory(file, 0).length, 1, 'limit 下限 1')
   assert.equal(readHistory(file, 9999).length, 60, 'limit 上限 200，但只有 60 条')
+})
+
+test('mergeHistory：聊天与主动消息按时间合并、尾部截取、脏数据丢弃', () => {
+  const chat = [
+    { role: 'user', content: '早', ts: 100 },
+    { role: 'assistant', content: '早呀', ts: 200 },
+    { role: 'user', content: '晚上好', ts: 400 },
+  ]
+  const proactive = [
+    {
+      role: 'assistant',
+      content: '上网看到新闻',
+      ts: 300,
+      kind: 'roam',
+      source: { name: 'Solidot', url: 'https://www.solidot.org/' },
+      id: 'p1',
+    },
+    { role: 'assistant', content: '随口一句', ts: 400, kind: 'whisper', id: 'p2' },
+  ]
+  const merged = mergeHistory(chat, proactive, 50)
+  assert.deepEqual(
+    merged.map((m) => m.content),
+    ['早', '早呀', '上网看到新闻', '晚上好', '随口一句'],
+    '按 ts 正序；同 ts 时聊天在前、主动消息在后',
+  )
+  assert.equal(merged[2].source.url, 'https://www.solidot.org/')
+  assert.deepEqual(mergeHistory(chat, proactive, 2).map((m) => m.content), ['晚上好', '随口一句'], 'limit 取尾部')
+  assert.deepEqual(mergeHistory([{ content: '' }], null, 10), [], '空内容/非数组不炸')
 })
 
 test('clearMemory：返回清掉的条数、文件清空', () => {

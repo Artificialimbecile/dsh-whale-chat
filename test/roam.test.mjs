@@ -10,6 +10,7 @@ import test from 'node:test'
 import {
   afterQuietDate,
   assertPublicUrl,
+  clearMessages,
   decodeEntities,
   detectSourceType,
   emptyMessages,
@@ -26,6 +27,7 @@ import {
   jitterIntervalMs,
   markRead,
   messagesAfter,
+  messagesAsHistory,
   nextMorningDate,
   parseSource,
   pickSource,
@@ -492,6 +494,34 @@ test('消息队列：最多保留 200 条（从头丢）', () => {
   assert.equal(data.items[0].id, 6, '最旧的 5 条被丢掉')
   assert.equal(data.items[199].id, 205)
   assert.equal(data.nextId, 206)
+})
+
+// ---------------------------------------------------------------------------
+// 消息队列 → 对话历史（面板保留显示）
+// ---------------------------------------------------------------------------
+
+test('messagesAsHistory：主动消息映射成时间线条目（来源、p 前缀 id、清空）', () => {
+  const file = tempFile('messages.json')
+  const first = enqueueMessage(file, {
+    kind: 'roam',
+    text: '看到一条新闻',
+    source: { name: 'Solidot', url: 'https://www.solidot.org/' },
+    at: '2026-10-29T12:00:00+08:00',
+  })
+  enqueueMessage(file, { kind: 'whisper', text: '念叨一句', at: '2026-10-29T13:00:00+08:00' })
+  const history = messagesAsHistory(file)
+  assert.equal(history.length, 2)
+  assert.equal(history[0].role, 'assistant')
+  assert.equal(history[0].content, '看到一条新闻')
+  assert.equal(history[0].kind, 'roam')
+  assert.equal(history[0].id, 'p' + first.id)
+  assert.equal(history[0].source.url, 'https://www.solidot.org/')
+  assert.equal(history[1].kind, 'whisper')
+  assert.ok(history[1].ts > history[0].ts, 'ts 按 at 解析、时间正序')
+
+  assert.equal(clearMessages(file), 2)
+  assert.deepEqual(readMessages(file), emptyMessages())
+  assert.deepEqual(messagesAsHistory(file), [])
 })
 
 // ---------------------------------------------------------------------------
