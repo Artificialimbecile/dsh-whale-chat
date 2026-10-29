@@ -29,7 +29,7 @@
 
 ```jsonc
 {
-  "version": "0.1.0",
+  "version": "0.1.3",
   "model": { "provider": "deepseek-account", "model": "deepseek-flash" }, // 当前对话模型，可能为 null
   "chatModel": { "provider": "...", "model": "..." },                     // 实际生效的对话模型
   "memoryCount": 12,
